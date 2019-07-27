@@ -1,4 +1,4 @@
-# diff-format
+# diff-format (Scala/Java)
 This library performs a diff operation (google: diff_match_patch) on two sentences having text properties such as bold etc. and returns one single string with markers for diff operations and properties in the form of indexes.
 
 # Diff Logic #
