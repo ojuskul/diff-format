@@ -265,7 +265,7 @@ public class diff_match_patch {
             return diffs;
         }
 
-        if (checklines && text1.length() > 100 && text2.length() > 100) {
+        if (checklines) {
             return diff_lineMode(text1, text2, deadline);
         }
 
