@@ -1,5 +1,5 @@
 # diff-format
-This library performs a diff operation (google: diff_match_patch) and preserves text formatting (Bold etc)
+This library performs a diff operation (google: diff_match_patch) on two sentences having text properties such as bold etc. and returns one single string with markers for diff operations and properties in the form of indexes.
 
 # Diff Logic #
 The diffing library used here is the google: diff_match_patch (https://github.com/google/diff-match-patch) with following changes:
