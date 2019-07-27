@@ -14,6 +14,13 @@ case class idx
 
 object SentenceProcessor {
 
+  /**
+    *
+    * @param old Old Sentence with properties
+    * @param `new` New Sentence with properties
+    * @param diff Computed diff using google diff match patch
+    * @return A sentence that merges properties of old & new sentence and also stores diff indexes
+    */
   def offsetDiffProps(old: Sentence, `new`: Sentence, diff: Array[diff_match_patch.Diff]):Sentence = {
 
     //hold current index of the old/new text
@@ -43,6 +50,7 @@ object SentenceProcessor {
 
         equalIdx = equalIdx ++ Array(idx(runIndex,runIndex + obj.text.length))
       }else if(obj.operation == Operation.DELETE){
+        //copy over properties from old text
         newProps = newProps ++
           old.props.toArray.filter( f => (f._2.filter(id => (id.start > oldIndex && id.end <= oldIndex + obj.text.length))).nonEmpty) //filter out all keys for matching index
             .map(m => (m._1, m._2.filter(f => (f.start > oldIndex && f.end <= oldIndex + obj.text.length)))) //filter the properties that fall within index
@@ -52,6 +60,7 @@ object SentenceProcessor {
 
         deleteIdx = deleteIdx ++ Array(idx(runIndex,runIndex + obj.text.length))
       }else if(obj.operation == Operation.INSERT){
+        //copy over properties from new text
         newProps = newProps ++
           `new`.props.toArray.filter( f => (f._2.filter(id => (id.start > newIndex && id.end <= newIndex + obj.text.length))).nonEmpty) //filter out all keys for matching index
             .map(m => (m._1, m._2.filter(f => (f.start > newIndex && f.end <= newIndex + obj.text.length)))) //filter the properties that fall within index
